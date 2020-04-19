@@ -1651,6 +1651,7 @@ static void fs__chmod(uv_fs_t* req) {
 }
 
 
+#if 0
 static void fs__fchmod(uv_fs_t* req) {
   int fd = req->file.fd;
   int clear_archive_flag;
@@ -1735,6 +1736,7 @@ static void fs__fchmod(uv_fs_t* req) {
 fchmod_cleanup:
   CloseHandle(handle);
 }
+#endif
 
 
 INLINE static int fs__utime_handle(HANDLE handle, double atime, double mtime) {
@@ -2161,7 +2163,9 @@ static void uv__fs_work(struct uv__work* w) {
     XX(FUTIME, futime)
     XX(ACCESS, access)
     XX(CHMOD, chmod)
+#if 0
     XX(FCHMOD, fchmod)
+#endif
     XX(FSYNC, fsync)
     XX(FDATASYNC, fdatasync)
     XX(UNLINK, unlink)
@@ -2658,6 +2662,7 @@ int uv_fs_chmod(uv_loop_t* loop, uv_fs_t* req, const char* path, int mode,
 }
 
 
+#if 0
 int uv_fs_fchmod(uv_loop_t* loop, uv_fs_t* req, uv_file fd, int mode,
     uv_fs_cb cb) {
   INIT(UV_FS_FCHMOD);
@@ -2665,6 +2670,7 @@ int uv_fs_fchmod(uv_loop_t* loop, uv_fs_t* req, uv_file fd, int mode,
   req->fs.info.mode = mode;
   POST;
 }
+#endif
 
 
 int uv_fs_utime(uv_loop_t* loop, uv_fs_t* req, const char* path, double atime,
