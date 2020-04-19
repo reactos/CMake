@@ -1668,13 +1668,12 @@ int uv_os_uname(uv_utsname_t* buffer) {
 
   if (r == ERROR_SUCCESS) {
     product_name_w_size = sizeof(product_name_w);
-    r = RegGetValueW(registry_key,
-                     NULL,
-                     L"ProductName",
-                     RRF_RT_REG_SZ,
-                     NULL,
-                     (PVOID) product_name_w,
-                     &product_name_w_size);
+    r = RegQueryValueExW(registry_key,
+                         L"ProductName",
+                         NULL,
+                         NULL,
+                         (PBYTE) product_name_w,
+                         &product_name_w_size);
     RegCloseKey(registry_key);
 
     if (r == ERROR_SUCCESS) {
