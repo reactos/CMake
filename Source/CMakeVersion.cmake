@@ -7,7 +7,7 @@ set(CMake_VERSION_IS_DIRTY 0)
 
 # Start with the full version number used in tags.  It has no dev info.
 set(CMake_VERSION
-  "${CMake_VERSION_MAJOR}.${CMake_VERSION_MINOR}.${CMake_VERSION_PATCH}")
+  "${CMake_VERSION_MAJOR}.${CMake_VERSION_MINOR}.${CMake_VERSION_PATCH}-ReactOS")
 if(DEFINED CMake_VERSION_RC)
   set(CMake_VERSION "${CMake_VERSION}-rc${CMake_VERSION_RC}")
 endif()
