@@ -4674,6 +4674,20 @@ typedef BOOLEAN (WINAPI* sCreateSymbolicLinkW)
                  LPCWSTR lpTargetFileName,
                  DWORD dwFlags);
 
+typedef VOID (WINAPI* sInitializeConditionVariable)
+             (PCONDITION_VARIABLE ConditionVariable);
+
+typedef BOOL (WINAPI* sSleepConditionVariableCS)
+             (PCONDITION_VARIABLE ConditionVariable,
+              PCRITICAL_SECTION CriticalSection,
+              DWORD dwMilliseconds);
+
+typedef VOID (WINAPI* sWakeAllConditionVariable)
+             (PCONDITION_VARIABLE ConditionVariable);
+
+typedef VOID (WINAPI* sWakeConditionVariable)
+             (PCONDITION_VARIABLE ConditionVariable);
+
 typedef DWORD (WINAPI* sGetFinalPathNameByHandleW)
              (HANDLE hFile,
               LPWSTR lpszFilePath,
@@ -4747,6 +4761,10 @@ extern sNtQuerySystemInformation pNtQuerySystemInformation;
 extern sGetQueuedCompletionStatusEx pGetQueuedCompletionStatusEx;
 extern sSetFileCompletionNotificationModes pSetFileCompletionNotificationModes;
 extern sCreateSymbolicLinkW pCreateSymbolicLinkW;
+extern sInitializeConditionVariable pInitializeConditionVariable;
+extern sSleepConditionVariableCS pSleepConditionVariableCS;
+extern sWakeAllConditionVariable pWakeAllConditionVariable;
+extern sWakeConditionVariable pWakeConditionVariable;
 extern sGetFinalPathNameByHandleW pGetFinalPathNameByHandleW;
 
 /* Powrprof.dll function pointer */

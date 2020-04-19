@@ -39,6 +39,10 @@ sNtQuerySystemInformation pNtQuerySystemInformation;
 sGetQueuedCompletionStatusEx pGetQueuedCompletionStatusEx;
 sSetFileCompletionNotificationModes pSetFileCompletionNotificationModes;
 sCreateSymbolicLinkW pCreateSymbolicLinkW;
+sInitializeConditionVariable pInitializeConditionVariable;
+sSleepConditionVariableCS pSleepConditionVariableCS;
+sWakeAllConditionVariable pWakeAllConditionVariable;
+sWakeConditionVariable pWakeConditionVariable;
 sGetFinalPathNameByHandleW pGetFinalPathNameByHandleW;
 
 /* Powrprof.dll function pointer */
@@ -123,6 +127,18 @@ void uv_winapi_init(void) {
 
   pCreateSymbolicLinkW = (sCreateSymbolicLinkW)
     GetProcAddress(kernel32_module, "CreateSymbolicLinkW");
+
+  pInitializeConditionVariable = (sInitializeConditionVariable)
+    GetProcAddress(kernel32_module, "InitializeConditionVariable");
+
+  pSleepConditionVariableCS = (sSleepConditionVariableCS)
+    GetProcAddress(kernel32_module, "SleepConditionVariableCS");
+
+  pWakeAllConditionVariable = (sWakeAllConditionVariable)
+    GetProcAddress(kernel32_module, "WakeAllConditionVariable");
+
+  pWakeConditionVariable = (sWakeConditionVariable)
+    GetProcAddress(kernel32_module, "WakeConditionVariable");
 
   pGetFinalPathNameByHandleW = (sGetFinalPathNameByHandleW)
     GetProcAddress(kernel32_module, "GetFinalPathNameByHandleW");

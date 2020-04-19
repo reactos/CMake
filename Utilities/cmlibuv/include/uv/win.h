@@ -264,7 +264,7 @@ typedef union {
     CRITICAL_SECTION waiters_count_lock;
     HANDLE signal_event;
     HANDLE broadcast_event;
-  } unused_; /* TODO: retained for ABI compatibility; remove me in v2.x. */
+  } fallback;
 } uv_cond_t;
 
 typedef union {
