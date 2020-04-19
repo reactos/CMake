@@ -37,6 +37,7 @@ sNtQuerySystemInformation pNtQuerySystemInformation;
 
 /* Kernel32 function pointers */
 sGetQueuedCompletionStatusEx pGetQueuedCompletionStatusEx;
+sCreateSymbolicLinkW pCreateSymbolicLinkW;
 
 /* Powrprof.dll function pointer */
 sPowerRegisterSuspendResumeNotification pPowerRegisterSuspendResumeNotification;
@@ -114,6 +115,9 @@ void uv_winapi_init(void) {
   pGetQueuedCompletionStatusEx = (sGetQueuedCompletionStatusEx) GetProcAddress(
       kernel32_module,
       "GetQueuedCompletionStatusEx");
+
+  pCreateSymbolicLinkW = (sCreateSymbolicLinkW)
+    GetProcAddress(kernel32_module, "CreateSymbolicLinkW");
 
   powrprof_module = LoadLibraryA("powrprof.dll");
   if (powrprof_module != NULL) {

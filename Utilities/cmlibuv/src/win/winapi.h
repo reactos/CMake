@@ -4665,6 +4665,11 @@ typedef BOOL (WINAPI *sGetQueuedCompletionStatusEx)
               DWORD dwMilliseconds,
               BOOL fAlertable);
 
+typedef BOOLEAN (WINAPI* sCreateSymbolicLinkW)
+                (LPCWSTR lpSymlinkFileName,
+                 LPCWSTR lpTargetFileName,
+                 DWORD dwFlags);
+
 /* from powerbase.h */
 #ifndef DEVICE_NOTIFY_CALLBACK
 # define DEVICE_NOTIFY_CALLBACK 2
@@ -4730,6 +4735,7 @@ extern sNtQuerySystemInformation pNtQuerySystemInformation;
 
 /* Kernel32 function pointers */
 extern sGetQueuedCompletionStatusEx pGetQueuedCompletionStatusEx;
+extern sCreateSymbolicLinkW pCreateSymbolicLinkW;
 
 /* Powrprof.dll function pointer */
 extern sPowerRegisterSuspendResumeNotification pPowerRegisterSuspendResumeNotification;

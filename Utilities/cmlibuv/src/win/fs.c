@@ -1995,13 +1995,17 @@ static void fs__symlink(uv_fs_t* req) {
     fs__create_junction(req, pathw, new_pathw);
     return;
   }
+  if (!pCreateSymbolicLinkW) {
+    SET_REQ_UV_ERROR(req, UV_ENOSYS, ERROR_NOT_SUPPORTED);
+    return;
+  }
 
   if (req->fs.info.file_flags & UV_FS_SYMLINK_DIR)
     flags = SYMBOLIC_LINK_FLAG_DIRECTORY | uv__file_symlink_usermode_flag;
   else
     flags = uv__file_symlink_usermode_flag;
 
-  if (CreateSymbolicLinkW(new_pathw, pathw, flags)) {
+  if (pCreateSymbolicLinkW(new_pathw, pathw, flags)) {
     SET_REQ_RESULT(req, 0);
     return;
   }
