@@ -2062,7 +2062,7 @@ static ssize_t fs__realpath_handle(HANDLE handle, char** realpath_ptr) {
   WCHAR* w_realpath_ptr = NULL;
   WCHAR* w_realpath_buf;
 
-  w_realpath_len = GetFinalPathNameByHandleW(handle, NULL, 0, VOLUME_NAME_DOS);
+  w_realpath_len = pGetFinalPathNameByHandleW(handle, NULL, 0, VOLUME_NAME_DOS);
   if (w_realpath_len == 0) {
     return -1;
   }
@@ -2074,7 +2074,7 @@ static ssize_t fs__realpath_handle(HANDLE handle, char** realpath_ptr) {
   }
   w_realpath_ptr = w_realpath_buf;
 
-  if (GetFinalPathNameByHandleW(
+  if (pGetFinalPathNameByHandleW(
           handle, w_realpath_ptr, w_realpath_len, VOLUME_NAME_DOS) == 0) {
     uv__free(w_realpath_buf);
     SetLastError(ERROR_INVALID_HANDLE);
@@ -2106,6 +2106,11 @@ static ssize_t fs__realpath_handle(HANDLE handle, char** realpath_ptr) {
 
 static void fs__realpath(uv_fs_t* req) {
   HANDLE handle;
+
+  if (!pGetFinalPathNameByHandleW) {
+    SET_REQ_UV_ERROR(req, UV_ENOSYS, ERROR_NOT_SUPPORTED);
+    return;
+  }
 
   handle = CreateFileW(req->file.pathw,
                        0,

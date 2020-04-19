@@ -4670,6 +4670,12 @@ typedef BOOLEAN (WINAPI* sCreateSymbolicLinkW)
                  LPCWSTR lpTargetFileName,
                  DWORD dwFlags);
 
+typedef DWORD (WINAPI* sGetFinalPathNameByHandleW)
+             (HANDLE hFile,
+              LPWSTR lpszFilePath,
+              DWORD cchFilePath,
+              DWORD dwFlags);
+
 /* from powerbase.h */
 #ifndef DEVICE_NOTIFY_CALLBACK
 # define DEVICE_NOTIFY_CALLBACK 2
@@ -4736,6 +4742,7 @@ extern sNtQuerySystemInformation pNtQuerySystemInformation;
 /* Kernel32 function pointers */
 extern sGetQueuedCompletionStatusEx pGetQueuedCompletionStatusEx;
 extern sCreateSymbolicLinkW pCreateSymbolicLinkW;
+extern sGetFinalPathNameByHandleW pGetFinalPathNameByHandleW;
 
 /* Powrprof.dll function pointer */
 extern sPowerRegisterSuspendResumeNotification pPowerRegisterSuspendResumeNotification;
